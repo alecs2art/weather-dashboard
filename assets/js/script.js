@@ -1,13 +1,33 @@
 var apiKey = "e196ee372d18ba4e4a4e491fffa2b30c"
-var submitBtn = document.getElementById("btn");
-var searchCity = document.getElementById("sForm");
+var submitButton = document.querySelector(".button");
+var searchCity = document.querySelector(".searchCity");
+var temp = document.querySelector(".todaysTemp");
+var wind = document.querySelector(".todaysWind");
+var humidity = document.querySelector(".todaysHumidity");
 
-submitBtn.addEventListener("click", function() {
+console.log(searchCity.value);
 
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=e196ee372d18ba4e4a4e491fffa2b30c")
-    
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-    
+submitButton.addEventListener('click', function() {
+
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+searchCity.value+'&appid=e196ee372d18ba4e4a4e491fffa2b30c')
+        .then(res => res.json())
+        .then(data => {
+            var cityData = data['name'];
+            var tempData = data['main']['temp'];
+            var windData = data['wind'];
+            var humidityData = data['main']['humidity'];
+
+            searchCity.innerHTML = cityData;
+            temp.innerHTML = 'Tempature:' + tempData;
+            wind.innerHTML = 'Wind:' + windData;
+            humidity.innerHTML = 'Humidity:' + humidityData;
+        });
+        
 });
+    
+
+
+
+
+    
 
